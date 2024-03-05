@@ -6,8 +6,22 @@
     <description>Recent content in Posts on xuechao.net website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Mar 2024 10:58:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 05 Mar 2024 13:20:19 +0800</lastBuildDate>
     <atom:link href="https://www.xuechao.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>3rdArtical</title>
+      <link>https://www.xuechao.net/posts/3rdartical/</link>
+      <pubDate>Tue, 05 Mar 2024 13:20:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/3rdartical/</guid>
+      <description>3rd test </description>
+    </item>
+    <item>
+      <title>2ndArtical</title>
+      <link>https://www.xuechao.net/posts/2ndartical/</link>
+      <pubDate>Tue, 05 Mar 2024 13:17:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/2ndartical/</guid>
+      <description>第二篇博客 test cool cool1 </description>
+    </item>
     <item>
       <title>MyFirstArticle</title>
       <link>https://www.xuechao.net/posts/myfirstarticle/</link>
