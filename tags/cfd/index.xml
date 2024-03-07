@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cfd on XueChao&#39;s Blog</title>
+    <link>https://www.xuechao.net/tags/cfd/</link>
+    <description>Recent content in cfd on XueChao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 05 Feb 2024 10:58:19 +0800</lastBuildDate>
+    <atom:link href="https://www.xuechao.net/tags/cfd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用Star-CCM&#43;的Design Manager来进行扫描计算</title>
+      <link>https://www.xuechao.net/posts/using-starccmp-design-manager-to-perform-sweep/</link>
+      <pubDate>Mon, 05 Feb 2024 10:58:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/using-starccmp-design-manager-to-perform-sweep/</guid>
+      <description>介绍 在Star-CCM+的新的版本中增加了一个非常好用的功能————Design Manager。
+应用场景 研究发现 对策 结论 </description>
+    </item>
+  </channel>
+</rss>
