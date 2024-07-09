@@ -261,7 +261,9 @@
 <h2 id="研究发现">研究发现<a hidden class="anchor" aria-hidden="true" href="#研究发现">#</a></h2>
 <p>在现有的Star-CCM+版本计算中，通过sweep模式进行计算，如果单个design manager来sweep的案例较多的话，整体的计算效率会降低。</p>
 <p>比如，如下一个sweep案例，一共12个变量，每个变量取3个值进行扫描，整体计算量为：3^12=531441,整体53万个计算要跑完！首先假定咱们也有时间和硬件来运行，当这个sweeeeeep跑上之后，发现计算效率急剧下降，通过cpu的占用可以看出来几乎没有跑满。</p>
-<p><img loading="lazy" src="/using-starccmp-design-manager-to-perform-sweep/sweep_size.png" alt="sweep size"  title="sweep_size"  />
+<p><img loading="lazy" src="/static/using-starccmp-design-manager-to-perform-sweep/sweep_size.png" alt="sweep size"  title="sweep_size"  />
+</p>
+<p><img loading="lazy" src="/static/using-starccmp-design-manager-to-perform-sweep/sweep_design_table.png" alt="sweep_design_table"  title="sweep_design_table"  />
 </p>
 <p>可能的原因：有可能是Star-CCM+本身的原因。因为，如果选择更少的变量，比如只跑其中7个变量，那么整体运算量为：3^7=2187,这个时候从始至终cpu的占用可以非常高，整体计算效率可以很高。</p>
 <h2 id="对策">对策<a hidden class="anchor" aria-hidden="true" href="#对策">#</a></h2>
