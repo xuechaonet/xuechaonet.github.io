@@ -54,11 +54,11 @@ Email: xuechao@gmail.com</description>
 每次迭代都会使产品在某种程度上变得更好或更糟。但是，每个设计都提供了关于如何在无限多的潜在设计中寻找最终目标的宝贵信息。这些信息还是反映了整个模型的运行机理，有可能每个信息只是一个人的“盲人摸象”，但是如果能够收集到足够多的信息，使用机器学习的方法，虽然每个盲人看到的只是大象的一部分，从所有信息的角度来看，我们这一群盲人真正的能“看到”这个大象到底长得是什么样子。
 研究发现 在现有的Star-CCM+版本计算中，通过sweep模式进行计算，如果单个design manager来sweep的案例较多的话，整体的计算效率会降低。
 比如，如下一个sweep案例，一共12个变量，每个变量取3个值进行扫描，整体计算量为：3^12=531441,整体53万个计算要跑完！首先假定咱们也有时间和硬件来运行，当这个sweeeeeep跑上之后，发现计算效率急剧下降，通过cpu的占用可以看出来几乎没有跑满。
-![sweep size](/using-starccmp-design-manager-to-perform-sweep/sweep_size.png &amp;ldquo;sweep_size&amp;rdquo; #pic_center width=50%)
-![sweep_design_table](/using-starccmp-design-manager-to-perform-sweep/sweep_design_table.png &amp;ldquo;sweep_design_table&amp;rdquo; #pic_center width=50%)
+![sweep size](/using-starccmp-design-manager-to-perform-sweep/sweep_size.png#pic_center width=50% &amp;ldquo;sweep_size&amp;rdquo; )
+![sweep_design_table](/using-starccmp-design-manager-to-perform-sweep/sweep_design_table.png#pic_center width=50% &amp;ldquo;sweep_design_table&amp;rdquo;)
 可能的原因：有可能是Star-CCM+本身的原因。因为，如果选择更少的变量，比如只跑其中7个变量，那么整体运算量为：3^7=2187,这个时候从始至终cpu的占用可以非常高，整体计算效率可以很高。
 对策 根据前面的描述，那么我们只能将一个大的运算集分成若干个小的运算集进行，这个时候我们可以使用java编程。利用java程序，将其中若干个变量在java程序中进行迭代，剩下的变量在Star-CCM+中迭代。保证在Design manager中整体计算量不要超过3000，每个运算集完成后，其结果文件保存为单独的csv文件，后面将数据文件合并即可。
-参考java文件 ... public class java1 extends MdxMacro { double[] W = { 20.0, 25.0, 30.0}; double[] heat = { 10.0,15.0, 20.0 }; double[] v = { 10.0,15.0, 20.0 }; ... } private void execute0() { ... for (int i = 0; i &amp;lt; W.length; i++) { ... mdxStudyParameter_0.</description>
+参考java文件 ... public class java1 extends MdxMacro { double[] W = { 20.0, 25.0, 30.0}; double[] heat = { 10.0,15.0, 20.0 }; double[] v = { 10.0,15.0, 20.0 }; ... } private void execute0() { ... for (int i = 0; i &amp;lt; W.length; i++) { ... mdxStudyParameter_0.getBaselineQuantity().setValueAndUnits(W[i], units_0); for (int j = 0; j &amp;lt; heat.</description>
     </item>
   </channel>
 </rss>
