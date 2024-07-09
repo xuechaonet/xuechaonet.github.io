@@ -6,8 +6,16 @@
     <description>Recent content in simulation on Xue Chao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 05 Feb 2024 10:58:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 06 Feb 2024 18:00:19 +0800</lastBuildDate>
     <atom:link href="https://www.xuechao.net/categories/simulation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use Star-CCM&#43; Design Manager for parametric sweep simulations</title>
+      <link>https://www.xuechao.net/posts/use-star-ccm-design-manager-for-parametric-sweep/</link>
+      <pubDate>Tue, 06 Feb 2024 18:00:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/use-star-ccm-design-manager-for-parametric-sweep/</guid>
+      <description>Introduciton In the new version of Star-CCM+, a very useful feature called Design Manager has been added. It is mainly used for optimization and parametric sweep simulations.
+Applications The development and optimization of most engineering products involve systematic analysis of the parameters affecting their performance. Product performance is related to its primary operational characteristics, which typically refer to measurable quantities such as weight, dimensions, or resistance. Identifying key parameters and adjusting their values to improve product performance usually requires numerous design iterations.</description>
+    </item>
     <item>
       <title>利用Star-CCM&#43;的Design Manager来进行扫描计算</title>
       <link>https://www.xuechao.net/posts/using-starccmp-design-manager-to-perform-sweep/</link>
