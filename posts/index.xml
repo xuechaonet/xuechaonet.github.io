@@ -6,14 +6,15 @@
     <description>Recent content in Posts on Xue Chao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 09 Jul 2024 09:17:56 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 10 Feb 2024 18:00:19 +0800</lastBuildDate>
     <atom:link href="https://www.xuechao.net/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>20240709</title>
-      <link>https://www.xuechao.net/posts/20240709/</link>
-      <pubDate>Tue, 09 Jul 2024 09:17:56 +0800</pubDate>
-      <guid>https://www.xuechao.net/posts/20240709/</guid>
-      <description>TEsT </description>
+      <title>CFD and Machine Learning Part 1: A Simple Heat Transfer Model</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model-english/</link>
+      <pubDate>Sat, 10 Feb 2024 18:00:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model-english/</guid>
+      <description>Abstract This project：
+Designed a simple model that includes both heat transfer and convection phenomena, where the shape, size parameters, and physical boundary conditions can be altered within a certain range Conducted a sweep study using the Design Manager feature of Star-CCM+. Utilized Java programming and the sweep functionality of Design Manager to compute 183,750 cases. Saved the input and output data of this model into a single dataset. Allowed for experiments in future machine learning.</description>
     </item>
     <item>
       <title>CFD与机器学习（1）一个简单的模型</title>

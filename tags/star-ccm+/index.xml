@@ -9,6 +9,14 @@
     <lastBuildDate>Sat, 10 Feb 2024 18:00:19 +0800</lastBuildDate>
     <atom:link href="https://www.xuechao.net/tags/star-ccm+/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>CFD and Machine Learning Part 1: A Simple Heat Transfer Model</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model-english/</link>
+      <pubDate>Sat, 10 Feb 2024 18:00:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model-english/</guid>
+      <description>Abstract This project：
+Designed a simple model that includes both heat transfer and convection phenomena, where the shape, size parameters, and physical boundary conditions can be altered within a certain range Conducted a sweep study using the Design Manager feature of Star-CCM+. Utilized Java programming and the sweep functionality of Design Manager to compute 183,750 cases. Saved the input and output data of this model into a single dataset. Allowed for experiments in future machine learning.</description>
+    </item>
+    <item>
       <title>CFD与机器学习（1）一个简单的模型</title>
       <link>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model/</link>
       <pubDate>Sat, 10 Feb 2024 18:00:19 +0800</pubDate>
