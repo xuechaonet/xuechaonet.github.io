@@ -178,11 +178,21 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>摘要 本项目初步进行
-模型 模型如下图所示：
-数据集 机器学习 结论 </p>
+    <p>摘要 本项目：
+设计了一个包含传热和对流两种物理现象的简单模型，该模型的形状尺寸参数和物理边界条件设置都可以在一定的范围内改变， 使用Star-CCM&#43;的Design Manager功能进行sweep研究， 使用java编程和Design Manager的sweep功能，计算了183,750个算例， 将该模型的输入和输出数据保存成一个单独的数据集， 可以在后面的机器学习中进行试验， 最终通过对数据集进行机器学习，得到了一个神经网络模型，可以用来进行预测任意该模型在不同参数下的热表现。 验证了如果有足够的数据，就可以通过机器学习与工程应用结合进行研究，得出有价值的成果。 软硬件资源 软件：
+Star-CCM&#43; 3D-CAD Automation Design Manager Java Jupyter Notebook pandas numpy matplotlib pytorch 硬件：
+PC 6核以上CPU 8G RAM 独立显卡 模型 模型如下图所示：
+模型由3部分构成：
+heat plate air heat:发热体，材料属性设置为铜，与plate紧密连接在一起，之间没有热阻。其长宽高分别是尺寸变量。
+plate：不发热，材料属性设置为铁，其长宽为尺寸变量，其高度与heat保持一致。
+air：流体域，进口速度为变量，温度为恒定。
+该简单的模型主要描述的就是从heat这个部件发出一定的热量，大部分通过与plate接触传到到plate上面，然后经过plate与air的对流换热散发到air中去，heat还有较少部分热量通过heat顶面与air直接对流换热。
+该换热模型的变量一共有如下7个：
+H ——plate的宽，范围为[50,150]mm L ——plate的长，范围为[50,150]mm W ——plate的厚，范围为[5,20]mm H2 ——heat的宽，范围为[5,20]mm L2 ——heat的长，范围为[5,20]mm v_air ——空气的进口速度，范围为[5,20]m/s heat ——heat的发热量，范围为[1,20]w 数据集 该数据集可以在如下地址下载。
+该数据集的名称解释如下：
+Design#	：Star-CCM&#43;中的设计编号 “Name”	：Star-CCM&#43;中的DM单次计算顺序 “T_d”	：空气的进出口温差 “T_inlet (C)”	：空气进口温度 “T_outlet (C)”	：空气出口温度 “energy_out”	：根据空气进出口温差计算的空气通过对流带走的热量 “heatT (C)”	：heat的平均温度 “mass (kg/s)”	：空气的质量流量 “Performance”	：DM对单次设计的性能评价，我们只是通过Sweep功能来收集数据，该项没有意义。 “H (mm)”	：plate的宽 “H2 (mm)”	：heat的宽 “L (mm)”	：plate的长 “L2 (mm)”	：heat的长 “W (mm)”	：plate的厚 “Wair (mm)”	：为模型中air的高度，设置为常量 “heat”	：heat的发热量 “v”：空气的进口速度 机器学习 将数据集导入notebook并且做一些处理，选取我们主要的输入和输出：...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-02-10 18:00:19 +0800 CST'>2024-02-10</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Xue Chao</footer>
+  <footer class="entry-footer"><span title='2024-02-10 18:00:19 +0800 CST'>2024-02-10</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Xue Chao</footer>
   <a class="entry-link" aria-label="post link to CFD与机器学习（1）一个简单的模型" href="https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model/"></a>
 </article>
 

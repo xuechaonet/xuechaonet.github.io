@@ -35,9 +35,19 @@ Email: xuechao@gmail.com</description>
       <link>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model/</link>
       <pubDate>Sat, 10 Feb 2024 18:00:19 +0800</pubDate>
       <guid>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model/</guid>
-      <description>摘要 本项目初步进行
-模型 模型如下图所示：
-数据集 机器学习 结论 </description>
+      <description>摘要 本项目：
+设计了一个包含传热和对流两种物理现象的简单模型，该模型的形状尺寸参数和物理边界条件设置都可以在一定的范围内改变， 使用Star-CCM+的Design Manager功能进行sweep研究， 使用java编程和Design Manager的sweep功能，计算了183,750个算例， 将该模型的输入和输出数据保存成一个单独的数据集， 可以在后面的机器学习中进行试验， 最终通过对数据集进行机器学习，得到了一个神经网络模型，可以用来进行预测任意该模型在不同参数下的热表现。 验证了如果有足够的数据，就可以通过机器学习与工程应用结合进行研究，得出有价值的成果。 软硬件资源 软件：
+Star-CCM+ 3D-CAD Automation Design Manager Java Jupyter Notebook pandas numpy matplotlib pytorch 硬件：
+PC 6核以上CPU 8G RAM 独立显卡 模型 模型如下图所示：
+模型由3部分构成：
+heat plate air heat:发热体，材料属性设置为铜，与plate紧密连接在一起，之间没有热阻。其长宽高分别是尺寸变量。
+plate：不发热，材料属性设置为铁，其长宽为尺寸变量，其高度与heat保持一致。
+air：流体域，进口速度为变量，温度为恒定。
+该简单的模型主要描述的就是从heat这个部件发出一定的热量，大部分通过与plate接触传到到plate上面，然后经过plate与air的对流换热散发到air中去，heat还有较少部分热量通过heat顶面与air直接对流换热。
+该换热模型的变量一共有如下7个：
+H &amp;mdash;&amp;mdash;plate的宽，范围为[50,150]mm L &amp;mdash;&amp;mdash;plate的长，范围为[50,150]mm W &amp;mdash;&amp;mdash;plate的厚，范围为[5,20]mm H2 &amp;mdash;&amp;mdash;heat的宽，范围为[5,20]mm L2 &amp;mdash;&amp;mdash;heat的长，范围为[5,20]mm v_air &amp;mdash;&amp;mdash;空气的进口速度，范围为[5,20]m/s heat &amp;mdash;&amp;mdash;heat的发热量，范围为[1,20]w 数据集 该数据集可以在如下地址下载。
+该数据集的名称解释如下：
+Design#	：Star-CCM+中的设计编号 &amp;ldquo;Name&amp;rdquo;	：Star-CCM+中的DM单次计算顺序 &amp;ldquo;T_d&amp;rdquo;	：空气的进出口温差 &amp;ldquo;T_inlet (C)&amp;rdquo;	：空气进口温度 &amp;ldquo;T_outlet (C)&amp;rdquo;	：空气出口温度 &amp;ldquo;energy_out&amp;rdquo;	：根据空气进出口温差计算的空气通过对流带走的热量 &amp;ldquo;heatT (C)&amp;rdquo;	：heat的平均温度 &amp;ldquo;mass (kg/s)&amp;rdquo;	：空气的质量流量 &amp;ldquo;Performance&amp;rdquo;	：DM对单次设计的性能评价，我们只是通过Sweep功能来收集数据，该项没有意义。 &amp;ldquo;H (mm)&amp;rdquo;	：plate的宽 &amp;ldquo;H2 (mm)&amp;rdquo;	：heat的宽 &amp;ldquo;L (mm)&amp;rdquo;	：plate的长 &amp;ldquo;L2 (mm)&amp;rdquo;	：heat的长 &amp;ldquo;W (mm)&amp;rdquo;	：plate的厚 &amp;ldquo;Wair (mm)&amp;rdquo;	：为模型中air的高度，设置为常量 &amp;ldquo;heat&amp;rdquo;	：heat的发热量 &amp;ldquo;v&amp;rdquo;：空气的进口速度 机器学习 将数据集导入notebook并且做一些处理，选取我们主要的输入和输出：</description>
     </item>
     <item>
       <title>Use Star-CCM&#43; Design Manager for parametric sweep simulations</title>
