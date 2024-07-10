@@ -23,19 +23,19 @@
       <description></description>
     </item>
     <item>
-      <title>3rdArtical</title>
-      <link>https://www.xuechao.net/posts/3rdartical/</link>
-      <pubDate>Tue, 05 Mar 2024 13:20:19 +0800</pubDate>
-      <guid>https://www.xuechao.net/posts/3rdartical/</guid>
-      <description>3rd test FAR out in the ocean, where the water is as blue as the prettiest cornflower, and as clear as crystal, it is very, very deep; so deep, indeed, that no cable could fathom it: many church steeples, piled one upon another, would not reach from the ground beneath to the surface of the water above. There dwell the Sea King and his subjects. We must not imagine that there is nothing at the bottom of the sea but bare yellow sand.</description>
-    </item>
-    <item>
       <title>About</title>
       <link>https://www.xuechao.net/about/</link>
       <pubDate>Tue, 05 Mar 2024 10:58:19 +0800</pubDate>
       <guid>https://www.xuechao.net/about/</guid>
       <description>This is a Blog for CFD, Simulation and Machine Learing .
 Email: xuechao@gmail.com</description>
+    </item>
+    <item>
+      <title>CFD与机器学习（1）一个简单的模型</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model/</link>
+      <pubDate>Sat, 10 Feb 2024 18:00:19 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine-learning-part-1-a-simple-model/</guid>
+      <description>3rd test FAR out in the ocean, where the water is as blue as the prettiest cornflower, and as clear as crystal, it is very, very deep; so deep, indeed, that no cable could fathom it: many church steeples, piled one upon another, would not reach from the ground beneath to the surface of the water above. There dwell the Sea King and his subjects. We must not imagine that there is nothing at the bottom of the sea but bare yellow sand.</description>
     </item>
     <item>
       <title>Use Star-CCM&#43; Design Manager for parametric sweep simulations</title>
