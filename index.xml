@@ -16,6 +16,32 @@
       <description></description>
     </item>
     <item>
+      <title>CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 1. Introduction</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-english/</link>
+      <pubDate>Sun, 24 Mar 2024 18:00:00 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-english/</guid>
+      <description>Abstract In this project：
+A slightly more complex model was designed, with two physical phenomena: heat transfer and convection. The model&amp;rsquo;s geometric parameters and physical boundary conditions can be altered within certain ranges. This article provides a detailed description of the model. The model includes multiple adjustable parameters, and to study the behavior of specific variables across different ranges, distinct value ranges were established. The sweep study was conducted using the Design Manager feature of Star-CCM+.</description>
+    </item>
+    <item>
+      <title>CFD与机器学习（2）一个稍微复杂一点的模型：1.介绍</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chinese/</link>
+      <pubDate>Sun, 24 Mar 2024 18:00:00 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chinese/</guid>
+      <description>摘要 本项目：
+设计了一个包含传热和对流两种物理现象的稍微复杂一点的模型， 该模型的形状尺寸参数和物理边界条件设置都可以在一定的范围内改变， 在这篇文章中对该模型进行了详细的描述， 该模型有着多个可变化的参数参数，同时为了研究特定变量在不同的取值范围的表现，约定了不同的取值范围， 使用Star-CCM+的Design Manager功能进行sweep研究， 使用java编程和Design Manager的sweep功能，计算了不同变量个数的dataset， 可以在后面的机器学习中进行试验， 希望通过对该模型描述的物理现象出发，对数据集进行基于物理理解的分析， 然后再进行机器学习，使用不同的模型进行拟合， 来评估不同拟合模型在不同数据集下的表现， 本章首先对该研究模型进行介绍。 软硬件资源 软硬件资源同之前文章中介绍。
+模型 我们这次建立了一个稍微复杂一点的模型如下图所示：
+模型由4部分构成：
+air heat plate resist air：流体域，进口速度为变量，温度为恒定。
+heat:发热体，材料属性设置为铜，与plate之间有一个厚度为TH的resist，其长宽高分别是尺寸变量。
+plate：不发热，材料属性设置为铁，其长宽为尺寸变量，其高度与heat保持一致。
+resist: 不发热，材料属性中导热系数较小，Kresist=0.3 W/m-K.
+该模型比之前的模型稍微复杂了一点，增加了heat与plate两个部件中的resist，主要描述的就是从heat这个部件发出一定的热量，大部分热量首先经过具有较小导热系数的resist，传递到plate上面，然后经过plate与air的对流换热散发到air中去，heat还有较少部分热量通过heat顶面与air直接对流换热。
+该换热模型的变量一共有如下8个：
+H &amp;mdash;&amp;mdash;plate的宽， L &amp;mdash;&amp;mdash;plate的长， W &amp;mdash;&amp;mdash;plate的厚， H2 &amp;mdash;&amp;mdash;heat的宽， L2 &amp;mdash;&amp;mdash;heat的长， TH &amp;mdash;&amp;mdash;resist的厚， v_air &amp;mdash;&amp;mdash;空气的进口速度， heat &amp;mdash;&amp;mdash;heat的发热量。 下一步的准备 通过建立一个稍微复杂一点的传热和对流模型，可以对该模型有两条路线的研究：
+使用机器学习的方法，以数据为出发点，探索数据之间的关系； 或者从物理现象出发，以物理学为出发点，探索数据之间的关系。 后面我们准备从简单到复杂，一点一点的分别从两个角度对该模型进行研究，更能清晰准确的理解和认识CFD和机器学习之间的关系。</description>
+    </item>
+    <item>
       <title>About</title>
       <link>https://www.xuechao.net/about/</link>
       <pubDate>Tue, 05 Mar 2024 10:58:19 +0800</pubDate>
