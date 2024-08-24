@@ -154,7 +154,7 @@
     <p>Introduciton In the new version of Star-CCM&#43;, a very useful feature called Design Manager has been added. It is mainly used for optimization and parametric sweep simulations.
 Applications The development and optimization of most engineering products involve systematic analysis of the parameters affecting their performance. Product performance is related to its primary operational characteristics, which typically refer to measurable quantities such as weight, dimensions, or resistance. Identifying key parameters and adjusting their values to improve product performance usually requires numerous design iterations....</p>
   </div>
-  <footer class="entry-footer"><span title='2024-02-06 18:00:19 +0800 CST'>2024-02-06</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Xue Chao</footer>
+  <footer class="entry-footer"><span title='2024-02-06 18:00:19 +0800 +0800'>2024-02-06</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Xue Chao</footer>
   <a class="entry-link" aria-label="post link to Use Star-CCM&#43; Design Manager for parametric sweep simulations" href="https://www.xuechao.net/posts/use-star-ccm-design-manager-for-parametric-sweep/"></a>
 </article>
 
@@ -175,7 +175,7 @@ Applications The development and optimization of most engineering products invol
 对策 根据前面的描述，那么我们只能将一个大的运算集分成若干个小的运算集进行，这个时候我们可以使用java编程。利用java程序，将其中若干个变量在java程序中进行迭代，剩下的变量在Star-CCM&#43;中迭代。保证在Design manager中整体计算量不要超过3000，每个运算集完成后，其结果文件保存为单独的csv文件，后面将数据文件合并即可。
 参考java文件 ... public class java1 extends MdxMacro { double[] W = { 20.0, 25.0, 30.0}; double[] heat = { 10.0,15.0, 20.0 }; double[] v = { 10.0,15.0, 20.0 }; ... } private void execute0() { ... for (int i = 0; i &lt; W.length; i&#43;&#43;) { ... mdxStudyParameter_0.getBaselineQuantity().setValueAndUnits(W[i], units_0); for (int j = 0; j &lt; heat....</p>
   </div>
-  <footer class="entry-footer"><span title='2024-02-05 10:58:19 +0800 CST'>2024-02-05</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Xue Chao</footer>
+  <footer class="entry-footer"><span title='2024-02-05 10:58:19 +0800 +0800'>2024-02-05</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Xue Chao</footer>
   <a class="entry-link" aria-label="post link to 利用Star-CCM&#43;的Design Manager来进行扫描计算" href="https://www.xuechao.net/posts/using-starccmp-design-manager-to-perform-sweep/"></a>
 </article>
     </main>

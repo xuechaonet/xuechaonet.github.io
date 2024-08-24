@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) | Xue Chao</title>
+<meta name="keywords" content="star ccm&#43;, cfd, design manager, machine learning">
+<meta name="description" content="Abstract In the previous article, the model used in this study was introduced. In this chapter:
+To explore from the most fundamental and simplified perspective, one of the eight variable parameters of the model was selected for study. Different value ranges were defined to study the variable&rsquo;s behavior across various ranges. Sweep calculations were performed to obtain the dataset. The analysis of the dataset is based on a physical understanding of the phenomena described by the model.">
+<meta name="author" content="Xue Chao">
+<link rel="canonical" href="https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.xuechao.net/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.xuechao.net/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.xuechao.net/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.xuechao.net/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.xuechao.net/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn)" />
+<meta property="og:description" content="Abstract In the previous article, the model used in this study was introduced. In this chapter:
+To explore from the most fundamental and simplified perspective, one of the eight variable parameters of the model was selected for study. Different value ranges were defined to study the variable&rsquo;s behavior across various ranges. Sweep calculations were performed to obtain the dataset. The analysis of the dataset is based on a physical understanding of the phenomena described by the model." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english/" />
+<meta property="og:image" content="https://www.xuechao.net/img/7-cfd-and-machine-learning-2-2/D-all-T.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-30T18:00:00+08:00" />
+<meta property="article:modified_time" content="2024-03-30T18:00:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.xuechao.net/img/7-cfd-and-machine-learning-2-2/D-all-T.png" />
+<meta name="twitter:title" content="CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn)"/>
+<meta name="twitter:description" content="Abstract In the previous article, the model used in this study was introduced. In this chapter:
+To explore from the most fundamental and simplified perspective, one of the eight variable parameters of the model was selected for study. Different value ranges were defined to study the variable&rsquo;s behavior across various ranges. Sweep calculations were performed to obtain the dataset. The analysis of the dataset is based on a physical understanding of the phenomena described by the model."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://www.xuechao.net/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn)",
+      "item": "https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn)",
+  "name": "CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn)",
+  "description": "Abstract In the previous article, the model used in this study was introduced. In this chapter:\nTo explore from the most fundamental and simplified perspective, one of the eight variable parameters of the model was selected for study. Different value ranges were defined to study the variable\u0026rsquo;s behavior across various ranges. Sweep calculations were performed to obtain the dataset. The analysis of the dataset is based on a physical understanding of the phenomena described by the model.",
+  "keywords": [
+    "star ccm+", "cfd", "design manager", "machine learning"
+  ],
+  "articleBody": "Abstract In the previous article, the model used in this study was introduced. In this chapter:\nTo explore from the most fundamental and simplified perspective, one of the eight variable parameters of the model was selected for study. Different value ranges were defined to study the variable’s behavior across various ranges. Sweep calculations were performed to obtain the dataset. The analysis of the dataset is based on a physical understanding of the phenomena described by the model. Machine learning techniques were then applied, using different models for fitting. The goal was to evaluate the performance of different regression models on the dataset. Model The model has been introduced in the previous article, as shown in the figure below:\nThis heat transfer model has 8 adjustable parameters:\nH —— width of the plate, L —— length of the plate, W —— thickness of the plate, H2 —— width of the heat component, L2 —— length of the heat component, TH —— thickness of the resist layer, v_air —— inlet velocity of the air, heat —— heat generation rate of the heat component. Study of A Single Variable In this chapter, we select only one parameter as the variable, while the other parameters remain constant. The cross-section of the model is shown in the figure below:\nThe physical phenomenon reflected by the model has been introduced in our previous article: “A certain amount of heat is emitted from the ‘heat’ component. Most of this heat first passes through the ‘resist,’ which has a relatively low thermal conductivity, and is then transferred to the ‘plate.’ From there, it is dissipated into the air through convective heat transfer between the ‘plate’ and the ‘air.’ A smaller portion of the heat from the ‘heat’ component is directly dissipated into the ‘air’ through convective heat transfer from the top surface of the ‘heat’.”\nIf we ignore the convective exchange between the ‘resist’ component and the air, as well as some aspects of three-dimensional heat transfer, and assume that the temperature of the ‘heat’ component is uniformly distributed (due to its very high thermal conductivity), we can use a thermal circuit diagram to represent the heat transfer process of this model, as shown in the figure below:\nv_air as the variable First, we will conduct a study with the air velocity v_air as the variable. Based on the thermal circuit diagram above, changes in v_air primarily affect the convective heat transfer coefficient between the air and the solid. According to Newton’s law of cooling: Q = h * A * (Ts - Tf) , the surface temperature of the object is inversely proportional to the convective heat transfer coefficient 1/h.\nUsing software to calculate the model’s behavior at different air velocities, the relationship between the temperature of the ‘heat’ component and the air velocity is as follows:\nThe figure above shows the variation in the average temperature of the ‘heat’ component over the range of air velocities range [2.5, 20] m/s. In this relationship, we can clearly see that the initial analysis using Newton’s law of cooling is consistent with the simulation results. As the air velocity increases, the convective heat transfer coefficient between the air and the solid also increases, which in turn decreases its reciprocal. This results in a nonlinear inverse relationship between air velocity and the temperature of the ‘heat’ component.\nIf the air velocity ranges from [8, 12] m/s, the temperature variation of the heat component is shown in the figure below:\nFrom the above, it can be observed that the strength of the linear relationship between a variable and the result variable varies within different ranges of that variable.\nThe transverse position of the heat component as a variable Above, we examined the relationship between the heat temperature and the velocity of the cooling air, which exhibited an inverse proportionality. To generate more complex data, we introduced an additional variable, D, in the original model to describe the transverse position of the heat component, as indicated by the red circle in the figure below:\nThe heat component has a positional variation in the direction perpendicular to the cooling air flow, with its distance from the side edge of the plate being D. The figure below shows a schematic of the model for three different values of D:\nWe kept D as the sole variable in the model while keeping other parameters constant, and calculated multiple cases with different values of D, ultimately forming the corresponding dataset.\nThe relationship between the temperature of the heat component and D is shown in the figure below:\nIn this model, with only the parameter D as the variable, the primary factor affecting the temperature of the heat component is the size of D, which reflects the relative position of the heat component. If the heat component is positioned closer to the edge, as shown in the cross-sectional temperature distribution in the figure below, one side of the heat component is nearer to the edge. The heat exchange on this side is influenced by the temperature gradient of the plate, leading to a reduced thermal conductivity on that side and consequently increasing the temperature of the heat component.\nAs D gradually increases, the heat component moves towards the center, improving its side heat transfer capability. Therefore, when the heat component is positioned in the center, its temperature is the lowest. The figure below shows the temperature distribution of the heat component when it is located in the central position. Machine learning study of the dataset with the transverse position of the heat component as a variable Scikit-learn Linear Regression First, we use Scikit-learn’s linear fitting method to fit the dataset. It is important to emphasize that we already know that there is no linear relationship between parameter D and the temperature T of the heat component. However, we will give it a try anyway.\nmodel=LinearRegression() model.fit(X_train,y_train) We use the dataset obtained by scanning and computing with CFD software, using this parameter as a variable, as the research object. We train the model using Scikit-learn’s linear regression, and the accuracy of the predictions made by the trained model is shown in the following figure:\nThe distribution of D vs. T for the actual results and predicted results is shown in the following figure:\nWe can clearly see that, from the perspective of physical phenomena, the relationship between D and T is nonlinear. Therefore, linear fitting cannot be used to train the data.\nScikit-learn Polynomial Regression Since we already know from physical phenomena that the relationship between D and T is not linear, and from the above results, we can see that D and T approximately have a parabolic relationship, we can use Scikit-learn’s polynomial regression to train the dataset.\nFirst, we use a 2nd-degree polynomial, as we have just guessed that the relationship between D and T is likely to be parabolic.\nmodel = make_pipeline(PolynomialFeatures(degree=2), LinearRegression()) model.fit(X_train,y_train) The accuracy of the trained model’s predictions is shown in the following figure:\nThe distribution of D vs. T for the actual results and predicted results is shown in the following figure:\nWow, using a 2nd-degree polynomial regression performs much better than linear regression. However, there is still some error. So let’s try increasing the degree of the polynomial.\nThe accuracy of the predictions made by the 3rd-degree polynomial regression model is shown in the following figure:\nThe distribution of D vs. T for the actual results and predicted results with the 3rd-degree polynomial regression is shown in the following figure:\nUsing the 3rd-degree polynomial regression yields better results than the 2nd-degree polynomial regression.\nThe accuracy of the predictions made by the 4th-degree polynomial regression model is shown in the following figure:\nThe distribution of D vs. T for the actual results and predicted results with the 3rd-degree polynomial regression is shown in the following figure:\nFrom the above figure, it can be seen that the 4th-degree polynomial regression has performed very well.\nConclusion This chapter explored two approaches for studying a parameter as a variable in a slightly more complex heat transfer and convection model:\nPhysical Phenomena Approach: Starting from the theory of heat transfer and convection, the relationship between the variable and the results was investigated based on physical phenomena.\nMachine Learning Approach: Using data-driven methods, both simple linear regression and polynomial regression were applied to study the dataset.\nUnderstanding the physical phenomena thoroughly can greatly assist in selecting appropriate machine learning models and improving their accuracy.\nIn the next chapter (Chapter 3), we will use neural networks to study the dataset and compare the results with polynomial regression.\n",
+  "wordCount" : "1430",
+  "inLanguage": "en",
+  "image":"https://www.xuechao.net/img/7-cfd-and-machine-learning-2-2/D-all-T.png","datePublished": "2024-03-30T18:00:00+08:00",
+  "dateModified": "2024-03-30T18:00:00+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Xue Chao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Xue Chao",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.xuechao.net/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.xuechao.net" accesskey="h" title="Xue Chao (Alt + H)">
+                <img src="https://www.xuechao.net/img/logo.png" alt="" aria-label="logo"
+                    height="35">Xue Chao</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.xuechao.net/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.xuechao.net/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.xuechao.net/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.xuechao.net/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.xuechao.net/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.xuechao.net">Home</a>&nbsp;»&nbsp;<a href="https://www.xuechao.net/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn)
+    </h1>
+    <div class="post-meta"><span title='2024-03-30 18:00:00 +0800 +0800'>2024-03-30</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Xue Chao
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="eager" src="https://www.xuechao.net/img/7-cfd-and-machine-learning-2-2/D-all-T.png" alt="this is a post image">
+        
+</figure><div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#abstract" aria-label="Abstract">Abstract</a></li>
+                <li>
+                    <a href="#model" aria-label="Model">Model</a></li>
+                <li>
+                    <a href="#study-of-a-single-variable" aria-label="Study of A Single Variable">Study of A Single Variable</a><ul>
+                        
+                <li>
+                    <a href="#v_air-as-the-variable" aria-label="v_air as the variable">v_air as the variable</a></li>
+                <li>
+                    <a href="#the-transverse-position-of-the-heat-component-as-a-variable" aria-label="The transverse position of the heat component as a variable">The transverse position of the heat component as a variable</a></li>
+                <li>
+                    <a href="#machine-learning-study-of-the-dataset-with-the-transverse-position-of-the-heat-component-as-a-variable" aria-label="Machine learning study of the dataset with the transverse position of the heat component as a variable">Machine learning study of the dataset with the transverse position of the heat component as a variable</a><ul>
+                        
+                <li>
+                    <a href="#scikit-learn-linear-regression" aria-label="Scikit-learn Linear Regression">Scikit-learn Linear Regression</a></li>
+                <li>
+                    <a href="#scikit-learn-polynomial-regression" aria-label="Scikit-learn Polynomial Regression">Scikit-learn Polynomial Regression</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="abstract">Abstract<a hidden class="anchor" aria-hidden="true" href="#abstract">#</a></h2>
+<p>In the previous article, the model used in this study was introduced. In this chapter:</p>
+<ul>
+<li>To explore from the most fundamental and simplified perspective, one of the eight variable parameters of the model was selected for study.</li>
+<li>Different value ranges were defined to study the variable&rsquo;s behavior across various ranges.</li>
+<li>Sweep calculations were performed to obtain the dataset.</li>
+<li>The analysis of the dataset is based on a physical understanding of the phenomena described by the model.</li>
+<li>Machine learning techniques were then applied, using different models for fitting.</li>
+<li>The goal was to evaluate the performance of different regression models on the dataset.</li>
+</ul>
+<h2 id="model">Model<a hidden class="anchor" aria-hidden="true" href="#model">#</a></h2>
+<p>The model has been introduced in the previous article, as shown in the figure below:</p>
+<p><img loading="lazy" src="/img/5-cfd-and-machine-learning-2/geometry-1.png" alt="geometry"  title="geometry"  />
+</p>
+<p><img loading="lazy" src="/img/5-cfd-and-machine-learning-2/geometry-2-2.png" alt="geometry"  title="geometry"  />
+</p>
+<p>This heat transfer model has 8  adjustable parameters:</p>
+<ul>
+<li>H &mdash;&mdash; width of the plate,</li>
+<li>L &mdash;&mdash; length of the plate,</li>
+<li>W &mdash;&mdash; thickness of the plate,</li>
+<li>H2 &mdash;&mdash; width of the heat component,</li>
+<li>L2 &mdash;&mdash; length of the heat component,</li>
+<li>TH &mdash;&mdash; thickness of the resist layer,</li>
+<li>v_air &mdash;&mdash; inlet velocity of the air,</li>
+<li>heat &mdash;&mdash; heat generation rate of the heat component.</li>
+</ul>
+<h2 id="study-of-a-single-variable">Study of A Single Variable<a hidden class="anchor" aria-hidden="true" href="#study-of-a-single-variable">#</a></h2>
+<p>In this chapter, we select only one parameter as the variable, while the other parameters remain constant. The cross-section of the model is shown in the figure below:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/cross-section.png" alt="cross-section"  title="cross-section"  />
+</p>
+<p>The physical phenomenon reflected by the model has been introduced in our previous article: &ldquo;A certain amount of heat is emitted from the &lsquo;heat&rsquo; component. Most of this heat first passes through the &lsquo;resist,&rsquo; which has a relatively low thermal conductivity, and is then transferred to the &lsquo;plate.&rsquo; From there, it is dissipated into the air through convective heat transfer between the &lsquo;plate&rsquo; and the &lsquo;air.&rsquo; A smaller portion of the heat from the &lsquo;heat&rsquo; component is directly dissipated into the &lsquo;air&rsquo; through convective heat transfer from the top surface of the &lsquo;heat&rsquo;.&rdquo;</p>
+<p>If we ignore the convective exchange between the &lsquo;resist&rsquo; component and the air, as well as some aspects of three-dimensional heat transfer, and assume that the temperature of the &lsquo;heat&rsquo; component is uniformly distributed (due to its very high thermal conductivity), we can use a thermal circuit diagram to represent the heat transfer process of this model, as shown in the figure below:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/hand-draw-1.png" alt="heat-transfer-circuit-diagram"  title="heat-transfer-circuit-diagram"  />
+</p>
+<h3 id="v_air-as-the-variable">v_air as the variable<a hidden class="anchor" aria-hidden="true" href="#v_air-as-the-variable">#</a></h3>
+<p>First, we will conduct a study with the air velocity v_air as the variable. Based on the thermal circuit diagram above, changes in v_air primarily affect the convective heat transfer coefficient between the air and the solid. According to Newton&rsquo;s law of cooling: Q = h * A * (Ts - Tf) , the surface temperature of the object is inversely proportional to the convective heat transfer coefficient 1/h.</p>
+<p>Using software to calculate the model&rsquo;s behavior at different air velocities, the relationship between the temperature of the &lsquo;heat&rsquo; component and the air velocity is as follows:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/v-T_heat.png" alt="v-T_heat"  title="v-T_heat"  />
+</p>
+<p>The figure above shows the variation in the average temperature of the &lsquo;heat&rsquo; component over the range of air velocities range [2.5, 20] m/s. In this relationship, we can clearly see that the initial analysis using Newton&rsquo;s law of cooling is consistent with the simulation results. As the air velocity increases, the convective heat transfer coefficient between the air and the solid also increases, which in turn decreases its reciprocal. This results in a nonlinear inverse relationship between air velocity and  the temperature of the &lsquo;heat&rsquo; component.</p>
+<p>If the air velocity ranges from [8, 12] m/s, the temperature variation of the heat component is shown in the figure below:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/v-T_heat_small_range.png" alt="v-T_heat_small_range"  title="v-T_heat_small_range"  />
+</p>
+<p>From the above, it can be observed that the strength of the linear relationship between a variable and the result variable varies within different ranges of that variable.</p>
+<h3 id="the-transverse-position-of-the-heat-component-as-a-variable">The transverse position of the heat component as a variable<a hidden class="anchor" aria-hidden="true" href="#the-transverse-position-of-the-heat-component-as-a-variable">#</a></h3>
+<p>Above, we examined the relationship between the heat temperature and the velocity of the cooling air, which exhibited an inverse proportionality. To generate more complex data, we introduced an additional variable, D, in the original model to describe the transverse position of the heat component, as indicated by the red circle in the figure below:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/geometry-with-D.png" alt="geometry-with-D"  title="geometry-with-D"  />
+</p>
+<p>The heat component has a positional variation in the direction perpendicular to the cooling air flow, with its distance from the side edge of the plate being D. The figure below shows a schematic of the model for three different values of D:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D-all-2.png" alt="D-all"  title="D-all"  />
+</p>
+<p>We kept D as the sole variable in the model while keeping other parameters constant, and calculated multiple cases with different values of D, ultimately forming the corresponding dataset.</p>
+<p>The relationship between the temperature of the heat component and D is shown in the figure below:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/DP_D_vs_T.png" alt="DP_D_vs_T"  title="DP_D_vs_T"  />
+</p>
+<p>In this model, with only the parameter D as the variable, the primary factor affecting the temperature of the heat component is the size of D, which reflects the relative position of the heat component. If the heat component is positioned closer to the edge, as shown in the cross-sectional temperature distribution in the figure below, one side of the heat component is nearer to the edge. The heat exchange on this side is influenced by the temperature gradient of the plate, leading to a reduced thermal conductivity on that side and consequently increasing the temperature of the heat component.</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D-1-T-big-with-iso.png" alt="D-1-T-big-with-iso"  title="D-1-T-big-with-iso"  />
+</p>
+<p>As D gradually increases, the heat component moves towards the center, improving its side heat transfer capability. Therefore, when the heat component is positioned in the center, its temperature is the lowest. The figure below shows the temperature distribution of the heat component when it is located in the central position.
+<img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D-2-T-big-with-iso.png" alt="D-2-T-big-with-iso"  title="D-2-T-big-with-iso"  />
+</p>
+<h3 id="machine-learning-study-of-the-dataset-with-the-transverse-position-of-the-heat-component-as-a-variable">Machine learning study of the dataset with the transverse position of the heat component as a variable<a hidden class="anchor" aria-hidden="true" href="#machine-learning-study-of-the-dataset-with-the-transverse-position-of-the-heat-component-as-a-variable">#</a></h3>
+<h4 id="scikit-learn-linear-regression">Scikit-learn Linear Regression<a hidden class="anchor" aria-hidden="true" href="#scikit-learn-linear-regression">#</a></h4>
+<p>First, we use Scikit-learn&rsquo;s linear fitting method to fit the dataset. It is important to emphasize that we already know that there is no linear relationship between parameter D and the temperature T of the heat component. However, we will give it a try anyway.</p>
+<pre tabindex="0"><code>model=LinearRegression()
+model.fit(X_train,y_train)
+</code></pre><p>We use the dataset obtained by scanning and computing with CFD software, using this parameter as a variable, as the research object. We train the model using Scikit-learn’s linear regression, and the accuracy of the predictions made by the trained model is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_p_a.png" alt="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  title="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  />
+</p>
+<p>The distribution of D vs. T for the actual results and predicted results is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear.png" alt="D_vs_T_heat_volume_report_compare_sk_linear"  title="D_vs_T_heat_volume_report_compare_sk_linear"  />
+</p>
+<p>We can clearly see that, from the perspective of physical phenomena, the relationship between D and T is nonlinear. Therefore, linear fitting cannot be used to train the data.</p>
+<h4 id="scikit-learn-polynomial-regression">Scikit-learn Polynomial Regression<a hidden class="anchor" aria-hidden="true" href="#scikit-learn-polynomial-regression">#</a></h4>
+<p>Since we already know from physical phenomena that the relationship between D and T is not linear, and from the above results, we can see that D and T approximately have a parabolic relationship, we can use Scikit-learn’s polynomial regression to train the dataset.</p>
+<p>First, we use a 2nd-degree polynomial, as we have just guessed that the relationship between D and T is likely to be parabolic.</p>
+<pre tabindex="0"><code>model = make_pipeline(PolynomialFeatures(degree=2), LinearRegression())
+model.fit(X_train,y_train)
+</code></pre><p>The accuracy of the trained model&rsquo;s predictions is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_p_a_2.png" alt="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  title="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  />
+</p>
+<p>The distribution of D vs. T for the actual results and predicted results is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_2.png" alt="D_vs_T_heat_volume_report_compare_sk_linear"  title="D_vs_T_heat_volume_report_compare_sk_linear"  />
+</p>
+<p>Wow, using a 2nd-degree polynomial regression performs much better than linear regression. However, there is still some error. So let&rsquo;s try increasing the degree of the polynomial.</p>
+<p>The accuracy of the predictions made by the 3rd-degree polynomial regression model is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_p_a_3.png" alt="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  title="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  />
+</p>
+<p>The distribution of D vs. T for the actual results and predicted results with the 3rd-degree polynomial regression is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_3.png" alt="D_vs_T_heat_volume_report_compare_sk_linear"  title="D_vs_T_heat_volume_report_compare_sk_linear"  />
+</p>
+<p>Using the 3rd-degree polynomial regression yields better results than the 2nd-degree polynomial regression.</p>
+<p>The accuracy of the predictions made by the 4th-degree polynomial regression model is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_p_a_4.png" alt="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  title="D_vs_T_heat_volume_report_compare_sk_linear_p_a"  />
+
+The distribution of D vs. T for the actual results and predicted results with the 3rd-degree polynomial regression is shown in the following figure:</p>
+<p><img loading="lazy" src="/img/7-cfd-and-machine-learning-2-2/D_vs_T_heat_volume_report_compare_sk_linear_4.png" alt="D_vs_T_heat_volume_report_compare_sk_linear"  title="D_vs_T_heat_volume_report_compare_sk_linear"  />
+</p>
+<p>From the above figure, it can be seen that the 4th-degree polynomial regression has performed very well.</p>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>This chapter explored two approaches for studying a parameter as a variable in a slightly more complex heat transfer and convection model:</p>
+<ul>
+<li>
+<p>Physical Phenomena Approach: Starting from the theory of heat transfer and convection, the relationship between the variable and the results was investigated based on physical phenomena.</p>
+</li>
+<li>
+<p>Machine Learning Approach: Using data-driven methods, both simple linear regression and polynomial regression were applied to study the dataset.</p>
+</li>
+</ul>
+<p>Understanding the physical phenomena thoroughly can greatly assist in selecting appropriate machine learning models and improving their accuracy.</p>
+<p>In the next chapter (Chapter 3), we will use neural networks to study the dataset and compare the results with polynomial regression.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://www.xuechao.net/tags/star-ccm&#43;/">star ccm&#43;</a></li>
+      <li><a href="https://www.xuechao.net/tags/cfd/">cfd</a></li>
+      <li><a href="https://www.xuechao.net/tags/design-manager/">design manager</a></li>
+      <li><a href="https://www.xuechao.net/tags/machine-learning/">machine learning</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-chinese/">
+    <span class="title">Next »</span>
+    <br>
+    <span>CFD与机器学习（2）一个稍微复杂一点的模型：2.单变量研究（SK-Learn）</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on x"
+            href="https://x.com/intent/tweet/?text=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29&amp;url=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f&amp;hashtags=starccm%2b%2ccfd%2cdesignmanager%2cmachinelearning">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f&amp;title=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29&amp;summary=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29&amp;source=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f&title=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on whatsapp"
+            href="https://api.whatsapp.com/send?text=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29%20-%20https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on telegram"
+            href="https://telegram.me/share/url?text=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29&amp;url=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 2. A Single Variable(SK-Learn) on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=CFD%20and%20Machine%20Learning%20Part%202%3a%20A%20Slightly%20More%20Complex%20Model%20-%20Chapter%202.%20A%20Single%20Variable%28SK-Learn%29&u=https%3a%2f%2fwww.xuechao.net%2fposts%2fcfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-2-english%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://www.xuechao.net">Xue Chao</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
