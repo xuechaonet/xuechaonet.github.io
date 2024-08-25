@@ -6,8 +6,46 @@
     <description>Recent content in star ccm&#43; on Xue Chao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 06 Apr 2024 18:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 13 Apr 2024 18:00:00 +0800</lastBuildDate>
     <atom:link href="https://www.xuechao.net/tags/star-ccm+/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 4. A Single Variable -Study on Dataset Size</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-4-english/</link>
+      <pubDate>Sat, 13 Apr 2024 18:00:00 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-4-english/</guid>
+      <description>Abstract In the previous article, it was introduced that both SK-Learn polynomial regression and neural networks can yield good results for the model used in this study. However, it is generally believed that neural networks require larger datasets. In this chapter:
+Different-sized datasets are generated using CFD (Computational Fluid Dynamics) and fitted using both methods. The performance of polynomial regression and neural network models is evaluated on different datasets. Dataset Previously, we selected a dataset containing 21 computed results.</description>
+    </item>
+    <item>
+      <title>CFD与机器学习（2）一个稍微复杂一点的模型：4.单变量研究-数据集大小研究</title>
+      <link>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-4-chinese/</link>
+      <pubDate>Sat, 13 Apr 2024 18:00:00 +0800</pubDate>
+      <guid>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-4-chinese/</guid>
+      <description>摘要 在前面文章中介绍了本研究的模型使用SK-Learn多项式回归和神经网络都可以得到好的结果，但是通常我们认为，神经网络对于数据集的大小要求会更高一点，在本章中：
+利用CFD产生不同大小的数据集，使用两种方法进行拟合， 评估了多项式回归和神经网络模型在不同数据集下的表现。 数据集 前面我们选用了包含21个计算结果结果的数据集。我们可以将D的步长进行调整，而产生更多的数据集，比如，我们可以产生包含11组数据的数据集，也可以产生包含101组数据的数据集，当然还有其他的数据集。
+11组数据的数据集中，heat部件的温度与D的关系如下图所示:
+101组数据的数据集中，heat部件的温度与D的关系如下图所示:
+371组数据的数据集中，heat部件的温度与D的关系如下图所示:
+Dataset11的研究 Dataset11多项式回归 使用了4阶多项式回归训练模型，在测试集中预测的准确度如下图所示：
+R2 score: 0.9628717222035422
+Mean Squared Error: 0.010903528174133134
+Mean Absolute Error: 0.0893634062848226
+Dataset11神经网络模型 使用了与上一文章中一样的7层隐藏层的神经网络模型，在测试集中预测的准确度如下图所示：
+R2 score: 0.35997135381363976
+Mean Squared Error: 0.19054323
+Mean Absolute Error: 0.3524933
+Dataset21的研究 Dataset21多项式回归 使用了4阶多项式回归训练模型，在测试集中预测的准确度如下图所示：
+R2 score: 0.9814169221431929
+Mean Squared Error: 0.004181097720090528
+Mean Absolute Error: 0.06277254235435378
+Dataset21神经网络模型 使用了与上一文章中一样的7层隐藏层的神经网络模型，在测试集中预测的准确度如下图所示：
+R2 score: 0.22970822906625143
+Mean Squared Error: 0.00063205796
+Mean Absolute Error: 0.02298813
+Dataset38的研究 Dataset38多项式回归 使用了4阶多项式回归训练模型，在测试集中预测的准确度如下图所示：
+R2 score: 0.9801750123259995
+Mean Squared Error: 0.</description>
+    </item>
     <item>
       <title>CFD and Machine Learning Part 2: A Slightly More Complex Model - Chapter 3. A Single Variable - Preliminary Study of Neural Networks</title>
       <link>https://www.xuechao.net/posts/cfd-and-machine_learning-part-2-a-slightly-more-complex-model-chapter-3-english/</link>
